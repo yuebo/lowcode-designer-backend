@@ -1,6 +1,5 @@
 package com.eappcat.flow.flowweb.binding;
 
-import com.eappcat.flow.flowweb.BindingObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Component;

@@ -39,22 +39,5 @@ public class FlowDefController {
         return ResponseVO.of(output);
     }
 
-    @RequestMapping("run/{path}")
-    public ResponseVO response(@PathVariable("path")String path, @RequestBody(required = false) String body, @RequestParam Map<String,Object> params, HttpServletRequest request) throws Exception{
-        RequestVO requestVO = createRequestVO(body, params, request);
-        ResponseVO responseVO = new ResponseVO();
-        flowEngine.runMvc(path, bindings -> {
-            bindings.put("request",requestVO);
-            bindings.put("response",responseVO);
-        });
-        return responseVO;
-    }
 
-    private RequestVO createRequestVO(@RequestBody(required = false) String body, @RequestParam Map<String, Object> params, HttpServletRequest request) {
-        RequestVO requestVO = new RequestVO();
-        requestVO.setUrl(request.getRequestURI());
-        requestVO.setParams(params);
-        requestVO.setBody(body);
-        return requestVO;
-    }
 }

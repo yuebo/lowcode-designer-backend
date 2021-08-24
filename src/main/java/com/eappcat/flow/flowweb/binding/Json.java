@@ -1,7 +1,6 @@
 package com.eappcat.flow.flowweb.binding;
 
 import com.alibaba.fastjson.JSONObject;
-import com.eappcat.flow.flowweb.BindingObject;
 import org.springframework.stereotype.Component;
 
 @Component

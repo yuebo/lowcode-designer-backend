@@ -1,4 +1,4 @@
-package com.eappcat.flow.flowweb;
+package com.eappcat.flow.flowweb.binding;
 
 /**
  * @author Xuan Yue Bo
@@ -6,7 +6,8 @@ package com.eappcat.flow.flowweb;
  */
 public interface BindingObject {
     /**
-     * @return 绑定变量的名称
+     * 绑定变量的名称
+     * @return 名称
      */
     String getName();
 }

@@ -2,15 +2,13 @@ package com.eappcat.flow.flowweb.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.eappcat.flow.flowweb.BindingObject;
+import com.eappcat.flow.flowweb.binding.BindingObject;
 import com.eappcat.flow.flowweb.dao.FlowDefDao;
 import com.eappcat.flow.flowweb.entity.FlowDef;
-import com.eappcat.flow.flowweb.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import sun.misc.IOUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.script.*;
 import java.io.StringWriter;
@@ -26,9 +24,11 @@ public class FlowEngine {
     @Autowired
     private List<BindingObject> bindingObjects;
     private ScriptEngineManager factory = new ScriptEngineManager();
+    @Transactional(rollbackFor = Exception.class)
     public String run(String flow) throws Exception{
         return this.run(flow,null,null,true);
     }
+    @Transactional(rollbackFor = Exception.class)
     public String run(String flow,Consumer<Bindings> consumer,Consumer<ScriptEngine> callback,boolean writer) throws Exception {
 
         JSONObject jsonObject=JSONObject.parseObject(flow);
@@ -68,6 +68,7 @@ public class FlowEngine {
 
 
     }
+    @Transactional(rollbackFor = Exception.class)
     public void runCode(ScriptEngine engine, Map<String,JSONObject> cache,JSONObject data, String code) throws Exception {
         JSONObject step = cache.get(code);
         if (step==null){
@@ -175,7 +176,7 @@ public class FlowEngine {
         }
         return null;
     }
-
+    @Transactional(rollbackFor = Exception.class)
     public void runMvc(String path, Consumer<Bindings> request)throws Exception {
         FlowDef flowDef = flowDefDao.findByPath(path);
         if (flowDef!=null){
